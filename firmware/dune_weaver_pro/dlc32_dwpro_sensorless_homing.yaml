@@ -10,65 +10,45 @@ stepping:
   dir_delay_us: 1
   disable_delay_us: 0
 axes:
-  shared_stepper_disable_pin: i2so.0
-  homing_runs: 2
   x:
-    steps_per_mm: 320
-    max_rate_mm_per_min: 3000
-    acceleration_mm_per_sec2: 500
-    max_travel_mm: 325
-    soft_limits: false
-    motor0:
-      limit_neg_pin: gpio.36
-      hard_limits: false
-      pulloff_mm: 2
-      stepstick:
-        step_pin: i2so.1
-        direction_pin: i2so.2
-        disable_pin: NO_PIN
-        ms1_pin: NO_PIN
-        ms2_pin: NO_PIN
-        ms3_pin: NO_PIN
-      limit_pos_pin: NO_PIN
-      limit_all_pin: NO_PIN
-  y:
-    steps_per_mm: 312
-    max_rate_mm_per_min: 3000
-    acceleration_mm_per_sec2: 500
-    max_travel_mm: 10
-    soft_limits: false
-    motor0:
-      limit_neg_pin: gpio.35
-      limit_pos_pin: NO_PIN
-      limit_all_pin: NO_PIN
-      hard_limits: false
-      pulloff_mm: 2
-      tmc_2209:
-        uart_num: 1
-        addr: 0
-        r_sense_ohms: 0.12
-        run_amps: 0.8
-        hold_amps: 0
-        homing_amps: 0.8
-        microsteps: 8
-        stallguard: 63
-        stallguard_debug: true
-        toff_disable: 0
-        toff_stealthchop: 5
-        toff_coolstep: 3
-        run_mode: StealthChop
-        homing_mode: StealthChop
-        use_enable: false
-        step_pin: i2so.5
-        direction_pin: i2so.6:low
-        disable_pin: NO_PIN
+    steps_per_mm: 287.5
+    max_rate_mm_per_min: 10000
+    acceleration_mm_per_sec2: 300
+    max_travel_mm: 320
+    soft_limits: true
+    driver:
+      type: TMC2209
+      uart_num: 1
+      sense_resistor: 0.110
+      stallguard: true
+      homing_sensitivity: 8   # Lower is more sensitive. Tune for your setup!
     homing:
-      cycle: 2
-      positive_direction: false
-      allow_single_axis: true
-      mpos_mm: 0.4
-      feed_mm_per_min: 200
-      seek_mm_per_min: 200
+      cycle: true
+      fast_rate: 1000
+      slow_rate: 200
+      seek_direction: 1       # 1 or -1 depending on your table
+      stallguard: true
+
+  y:
+    steps_per_mm: 320
+    max_rate_mm_per_min: 10000
+    acceleration_mm_per_sec2: 300
+    max_travel_mm: 1000
+    soft_limits: true
+    driver:
+      type: TMC2209
+      uart_num: 2
+      sense_resistor: 0.110
+      stallguard: true
+      homing_sensitivity: 8   # Adjust as needed!
+    homing:
+      cycle: true
+      fast_rate: 1000
+      slow_rate: 200
+      seek_direction: 1
+      stallguard: true
+
+stepper_idle_lock_time: 250
 i2so:
   bck_pin: gpio.16
   data_pin: gpio.21
