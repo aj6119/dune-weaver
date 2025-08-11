@@ -18,7 +18,7 @@ IGNORE_PORTS = ['/dev/cu.debug-console', '/dev/cu.Bluetooth-Incoming-Port']
 class BaseConnection:
     """Abstract base class for a connection."""
     def send(self, data: str) -> None:
-        raise NotImplementedError
+        raise NotImplementedError 
 
     def flush(self) -> None:
         raise NotImplementedError
@@ -378,7 +378,7 @@ def home():
     """
     Perform homing by checking device configuration and sending the appropriate commands.
     """
-    try:
+ """   try:
         if state.homing:
             logger.info("Using sensorless homing")
             state.conn.send("$H\n")
@@ -397,6 +397,18 @@ def home():
                 state.machine_y -= 22
 
         state.current_theta = state.current_rho = 0
+    except Exception as e:
+        logger.error(f"Error homing: {e}")
+     return False """
+"""
+    Perform homing using FluidNC's built-in homing via hall effect (limit) switches.
+    """
+    try:
+        logger.info("Using hardware (hall effect sensor) homing via FluidNC")
+        state.conn.send("$H\n")  # Initiate homing cycle
+        check_idle()  # Wait for completion
+        state.current_theta = 0
+        state.current_rho = 0
     except Exception as e:
         logger.error(f"Error homing: {e}")
         return False
