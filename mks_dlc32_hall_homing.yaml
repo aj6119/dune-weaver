@@ -30,7 +30,7 @@ axes:
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
-      limit_neg_pin: gpio.36:pu:low
+      limit_neg_pin: gpio.36:low
       hard_limits: true
       pulloff_mm: 2
       stepstick:
@@ -59,7 +59,7 @@ axes:
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
-      limit_neg_pin: gpio.35:pu:low
+      limit_neg_pin: gpio.35:low
       hard_limits: true
       pulloff_mm: 2
       stepstick:
