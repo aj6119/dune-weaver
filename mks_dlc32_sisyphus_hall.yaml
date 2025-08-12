@@ -70,8 +70,8 @@ axes:
     motor0:
       # Hall sensor for Y on GPIO35 (active-low typical)
       limit_neg_pin: gpio.35:low
-      hard_limits: true
-      pulloff_mm: 4
+      hard_limits: false
+      pulloff_mm: 1
       stepstick:
         step_pin: i2so.5
         direction_pin: i2so.6:low
