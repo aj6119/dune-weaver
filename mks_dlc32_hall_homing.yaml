@@ -41,17 +41,6 @@ axes:
       pulloff_mm: 1.000
       step_pin: I2SO.1
       direction_pin: I2SO.2
-      # disable_pin is shared via shared_stepper_disable_pin
-      tmc_2209:
-        # If your DLC32 is wired for UART, these are typical settings.
-        # If you are using TMC2209 in standalone (no UART), remove this block
-        # and set microsteps/current via jumpers.
-        uart_num: 1
-        addr: 0
-        r_sense_ohms: 0.110
-        run_amps: 0.80
-        hold_amps: 0.40
-        microsteps: 16
 
   y:
     steps_per_mm: 80.000
@@ -76,13 +65,6 @@ axes:
       pulloff_mm: 1.000
       step_pin: I2SO.5
       direction_pin: I2SO.6
-      tmc_2209:
-        uart_num: 1
-        addr: 1
-        r_sense_ohms: 0.110
-        run_amps: 0.80
-        hold_amps: 0.40
-        microsteps: 16
 
   z:
     steps_per_mm: 400.000
@@ -107,13 +89,6 @@ axes:
       pulloff_mm: 1.000
       step_pin: I2SO.9
       direction_pin: I2SO.10
-      tmc_2209:
-        uart_num: 1
-        addr: 2
-        r_sense_ohms: 0.110
-        run_amps: 0.80
-        hold_amps: 0.40
-        microsteps: 16
 
 control:
   # Optional: define control pins if wired on your DLC32; leave NO_PIN if unused
@@ -122,10 +97,6 @@ control:
   feed_hold_pin: NO_PIN
   cycle_start_pin: NO_PIN
 
-start:
-  # Optional startup lines
-  startup_line0:
-  startup_line1:
 
 # Notes:
 # - Endstop pins use ESP32 input-only GPIOs 34/35/36; suffix :low makes them active-low (typical for 3-wire hall sensors).
