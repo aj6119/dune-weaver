@@ -1,0 +1,133 @@
+board: MKS DLC32 v2.1
+name: DLC32 Hall Homing with TMC2209
+meta: Hall-effect endstops on X/Y/Z-, TMC2209 step/dir with UART addressing
+
+stepping:
+  engine: I2S_STATIC
+  idle_ms: 250
+  pulse_us: 4
+  dir_delay_us: 1
+  disable_delay_us: 0
+
+i2so:
+  bck_pin: gpio.22
+  ws_pin: gpio.17
+  data_pin: gpio.21
+
+axes:
+  # Shared enable for all stepper drivers via I2S
+  shared_stepper_disable_pin: I2SO.0
+
+  x:
+    steps_per_mm: 80.000
+    max_rate_mm_per_min: 6000.000
+    acceleration_mm_per_sec2: 800.000
+    max_travel_mm: 200.000
+    soft_limits: true
+    homing:
+      # Home Z first (cycle 1), then X&Y (cycle 2). X participates in cycle 2
+      cycle: 2
+      positive_direction: false
+      mpos_mm: 0.000
+      feed_mm_per_min: 300.000
+      seek_mm_per_min: 1500.000
+      settle_ms: 250
+      seek_scaler: 1.10
+      feed_scaler: 1.10
+    motor0:
+      # Hall-effect sensor at X- (active-low typical); adjust :low if your sensor is active-high
+      limit_neg_pin: gpio.36:low
+      hard_limits: true
+      pulloff_mm: 1.000
+      step_pin: I2SO.1
+      direction_pin: I2SO.2
+      # disable_pin is shared via shared_stepper_disable_pin
+      tmc_2209:
+        # If your DLC32 is wired for UART, these are typical settings.
+        # If you are using TMC2209 in standalone (no UART), remove this block
+        # and set microsteps/current via jumpers.
+        uart_num: 1
+        addr: 0
+        r_sense_ohms: 0.110
+        run_amps: 0.80
+        hold_amps: 0.40
+        microsteps: 16
+
+  y:
+    steps_per_mm: 80.000
+    max_rate_mm_per_min: 6000.000
+    acceleration_mm_per_sec2: 800.000
+    max_travel_mm: 200.000
+    soft_limits: true
+    homing:
+      # Y also homes in cycle 2 (with X)
+      cycle: 2
+      positive_direction: false
+      mpos_mm: 0.000
+      feed_mm_per_min: 300.000
+      seek_mm_per_min: 1500.000
+      settle_ms: 250
+      seek_scaler: 1.10
+      feed_scaler: 1.10
+    motor0:
+      # Hall-effect sensor at Y-
+      limit_neg_pin: gpio.35:low
+      hard_limits: true
+      pulloff_mm: 1.000
+      step_pin: I2SO.5
+      direction_pin: I2SO.6
+      tmc_2209:
+        uart_num: 1
+        addr: 1
+        r_sense_ohms: 0.110
+        run_amps: 0.80
+        hold_amps: 0.40
+        microsteps: 16
+
+  z:
+    steps_per_mm: 400.000
+    max_rate_mm_per_min: 1500.000
+    acceleration_mm_per_sec2: 100.000
+    max_travel_mm: 200.000
+    soft_limits: true
+    homing:
+      # Z homes first
+      cycle: 1
+      positive_direction: false
+      mpos_mm: 0.000
+      feed_mm_per_min: 120.000
+      seek_mm_per_min: 600.000
+      settle_ms: 250
+      seek_scaler: 1.10
+      feed_scaler: 1.10
+    motor0:
+      # Hall-effect sensor at Z-
+      limit_neg_pin: gpio.34:low
+      hard_limits: true
+      pulloff_mm: 1.000
+      step_pin: I2SO.9
+      direction_pin: I2SO.10
+      tmc_2209:
+        uart_num: 1
+        addr: 2
+        r_sense_ohms: 0.110
+        run_amps: 0.80
+        hold_amps: 0.40
+        microsteps: 16
+
+control:
+  # Optional: define control pins if wired on your DLC32; leave NO_PIN if unused
+  safety_door_pin: NO_PIN
+  reset_pin: NO_PIN
+  feed_hold_pin: NO_PIN
+  cycle_start_pin: NO_PIN
+
+start:
+  # Optional startup lines
+  startup_line0:
+  startup_line1:
+
+# Notes:
+# - Endstop pins use ESP32 input-only GPIOs 34/35/36; suffix :low makes them active-low (typical for 3-wire hall sensors).
+# - If an axis moves the wrong way during homing, flip its motor direction by adding :low to direction_pin or set positive_direction: true.
+# - If your board is not jumpered for TMC2209 UART, remove each tmc_2209 block and configure microsteps/current via jumpers on the drivers.
