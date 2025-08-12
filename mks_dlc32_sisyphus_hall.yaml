@@ -62,14 +62,14 @@ axes:
       cycle: 2
       positive_direction: false
       mpos_mm: 0
-      seek_mm_per_min: 120
-      feed_mm_per_min: 60
+      seek_mm_per_min: 100
+      feed_mm_per_min: 50
       settle_ms: 700
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
-      # Hall sensor for Y on GPIO35 (active-low typical)
-      limit_neg_pin: gpio.35:low
+      # Hall sensor for Y on GPIO34 (active-low typical)
+      limit_neg_pin: gpio.34:low
       hard_limits: true
       pulloff_mm: 4
       stepstick:
