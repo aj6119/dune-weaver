@@ -57,6 +57,7 @@ axes:
         r_sense_ohms: 0.110
         run_amps: 0.80
         hold_amps: 0.40
+        homing_amps: 0.60
         microsteps: 16
         # Sensorless settings
         stallguard: 8
@@ -96,6 +97,7 @@ axes:
         r_sense_ohms: 0.110
         run_amps: 0.80
         hold_amps: 0.40
+        homing_amps: 0.60
         microsteps: 16
         stallguard: 8
         stallguard_debug: false
