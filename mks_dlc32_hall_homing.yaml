@@ -84,8 +84,8 @@ control:
   fault_pin: NO_PIN
   estop_pin: NO_PIN
 
-macros:
-  macro0: G90; G0 X162.5 Y5
+  macros:
+    macro0: G90 G0 X162.5 Y5
 
 coolant:
   flood_pin: NO_PIN
