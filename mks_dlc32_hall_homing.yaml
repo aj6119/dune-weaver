@@ -20,9 +20,18 @@ axes:
     acceleration_mm_per_sec2: 500
     max_travel_mm: 325
     soft_limits: false
+    homing:
+      cycle: 1
+      positive_direction: false
+      mpos_mm: 0
+      feed_mm_per_min: 200
+      seek_mm_per_min: 500
+      settle_ms: 250
+      seek_scaler: 1.10
+      feed_scaler: 1.10
     motor0:
-      limit_neg_pin: gpio.36
-      hard_limits: false
+      limit_neg_pin: gpio.36:pu:low
+      hard_limits: true
       pulloff_mm: 2
       stepstick:
         step_pin: i2so.1
@@ -40,8 +49,18 @@ axes:
     acceleration_mm_per_sec2: 500
     max_travel_mm: 10
     soft_limits: false
+    homing:
+      cycle: 2
+      positive_direction: false
+      mpos_mm: 0
+      feed_mm_per_min: 120
+      seek_mm_per_min: 200
+      settle_ms: 250
+      seek_scaler: 1.10
+      feed_scaler: 1.10
     motor0:
-      limit_neg_pin: gpio.35
+      limit_neg_pin: gpio.35:pu:low
+      hard_limits: true
       pulloff_mm: 2
       stepstick:
         step_pin: i2so.5
