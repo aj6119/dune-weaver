@@ -1,6 +1,6 @@
 board: MKS DLC32 v2.1
-name: DLC32 Hall Homing with TMC2209
-meta: Hall-effect endstops on X/Y/Z-, TMC2209 step/dir with UART addressing
+name: DLC32 Hall Homing (Hall endstops)
+meta: Hall-effect endstops on X/Y/Z-, Step/Dir drivers via I2S (no UART)
 
 stepping:
   engine: I2S_STATIC
@@ -35,12 +35,14 @@ axes:
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
+      driver: stepstick
       # Hall-effect sensor at X- (active-low typical); adjust :low if your sensor is active-high
       limit_neg_pin: gpio.36:low
       hard_limits: true
       pulloff_mm: 1.000
-      step_pin: I2SO.1
-      direction_pin: I2SO.2
+      stepstick:
+        step_pin: I2SO.1
+        direction_pin: I2SO.2
 
   y:
     steps_per_mm: 80.000
@@ -59,12 +61,14 @@ axes:
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
+      driver: stepstick
       # Hall-effect sensor at Y-
       limit_neg_pin: gpio.35:low
       hard_limits: true
       pulloff_mm: 1.000
-      step_pin: I2SO.5
-      direction_pin: I2SO.6
+      stepstick:
+        step_pin: I2SO.5
+        direction_pin: I2SO.6
 
   z:
     steps_per_mm: 400.000
@@ -83,12 +87,14 @@ axes:
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
+      driver: stepstick
       # Hall-effect sensor at Z-
       limit_neg_pin: gpio.34:low
       hard_limits: true
       pulloff_mm: 1.000
-      step_pin: I2SO.9
-      direction_pin: I2SO.10
+      stepstick:
+        step_pin: I2SO.9
+        direction_pin: I2SO.10
 
 control:
   # Optional: define control pins if wired on your DLC32; leave NO_PIN if unused
