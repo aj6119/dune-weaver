@@ -39,7 +39,7 @@ axes:
     motor0:
       # Hall sensor for X on GPIO36 (active-low typical)
       limit_neg_pin: gpio.36:low
-      hard_limits: true
+      hard_limits: false
       pulloff_mm: 8
       stepstick:
         step_pin: i2so.1
