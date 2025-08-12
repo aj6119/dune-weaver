@@ -94,10 +94,7 @@ control:
   estop_pin: NO_PIN
 
 macros:
-  # Move to center (half of max travel on each axis)
-  macro0: |
-    G90
-    G0 X162.5 Y5
+  macro0: G90
 
 coolant:
   flood_pin: NO_PIN
