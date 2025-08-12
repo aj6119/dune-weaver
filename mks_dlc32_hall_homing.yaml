@@ -24,18 +24,18 @@ axes:
       cycle: 1
       positive_direction: false
       mpos_mm: 0
-      feed_mm_per_min: 150
-      seek_mm_per_min: 300
-      settle_ms: 500
+      feed_mm_per_min: 80
+      seek_mm_per_min: 150
+      settle_ms: 700
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
       limit_neg_pin: gpio.36:low
       hard_limits: true
-      pulloff_mm: 5
+      pulloff_mm: 8
       stepstick:
         step_pin: i2so.1
-        direction_pin: i2so.2:low
+        direction_pin: i2so.2
         disable_pin: NO_PIN
         ms1_pin: NO_PIN
         ms2_pin: NO_PIN
@@ -94,7 +94,7 @@ control:
   estop_pin: NO_PIN
 
 macros:
-  macro0: G90
+  macro0: G90; G0 X162.5 Y5
 
 coolant:
   flood_pin: NO_PIN
