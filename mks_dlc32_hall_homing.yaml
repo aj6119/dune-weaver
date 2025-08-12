@@ -26,13 +26,13 @@ axes:
       mpos_mm: 0
       feed_mm_per_min: 200
       seek_mm_per_min: 500
-      settle_ms: 250
+      settle_ms: 500
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
       limit_neg_pin: gpio.36:low
       hard_limits: true
-      pulloff_mm: 2
+      pulloff_mm: 5
       stepstick:
         step_pin: i2so.1
         direction_pin: i2so.2
@@ -55,13 +55,13 @@ axes:
       mpos_mm: 0
       feed_mm_per_min: 120
       seek_mm_per_min: 200
-      settle_ms: 250
+      settle_ms: 500
       seek_scaler: 1.10
       feed_scaler: 1.10
     motor0:
       limit_neg_pin: gpio.35:low
       hard_limits: true
-      pulloff_mm: 2
+      pulloff_mm: 3
       stepstick:
         step_pin: i2so.5
         direction_pin: i2so.6:low
@@ -94,7 +94,10 @@ control:
   estop_pin: NO_PIN
 
 macros:
-  macro0: G90
+  # Move to center (half of max travel on each axis)
+  macro0: |
+    G90
+    G0 X162.5 Y5
 
 coolant:
   flood_pin: NO_PIN
