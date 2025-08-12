@@ -1,0 +1,155 @@
+board: MKS-DLC32 V2.1
+name: Dune Weaver Pro (Sensorless)
+meta: Sensorless homing on X/Y with TMC2209 (UART); based on pins you provided
+
+kinematics: {}
+
+stepping:
+  engine: I2S_STATIC
+  idle_ms: 0
+  pulse_us: 4
+  dir_delay_us: 1
+  disable_delay_us: 0
+
+i2so:
+  bck_pin: gpio.16
+  data_pin: gpio.21
+  ws_pin: gpio.17
+
+# NOTE: You must wire the TMC2209 UART bus to these pins on the DLC32
+# Adjust if your wiring uses different GPIOs
+uart1:
+  txd_pin: gpio.4
+  rxd_pin: gpio.0
+  rts_pin: NO_PIN
+  cts_pin: NO_PIN
+  baud: 115200
+  mode: 8N1
+
+axes:
+  shared_stepper_disable_pin: i2so.0
+
+  x:
+    steps_per_mm: 320
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 500
+    max_travel_mm: 325
+    soft_limits: false
+    homing:
+      cycle: 1
+      positive_direction: false
+      mpos_mm: 0
+      feed_mm_per_min: 80
+      seek_mm_per_min: 150
+      settle_ms: 600
+      seek_scaler: 1.10
+      feed_scaler: 1.10
+    motor0:
+      # Sensorless: no physical limits
+      limit_neg_pin: NO_PIN
+      limit_pos_pin: NO_PIN
+      limit_all_pin: NO_PIN
+      hard_limits: false
+      pulloff_mm: 6
+      tmc_2209:
+        uart_num: 1
+        addr: 0
+        r_sense_ohms: 0.110
+        run_amps: 0.80
+        hold_amps: 0.40
+        homing_amps: 0.60
+        microsteps: 16
+        # Sensorless settings
+        stallguard: 8
+        stallguard_debug: false
+        run_mode: SpreadCycle
+        homing_mode: SpreadCycle
+        use_enable: false
+        # Step/dir via I2S
+        step_pin: i2so.1
+        direction_pin: i2so.2
+        disable_pin: NO_PIN
+
+  y:
+    steps_per_mm: 533
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 500
+    max_travel_mm: 10
+    soft_limits: false
+    homing:
+      cycle: 2
+      positive_direction: false
+      mpos_mm: 0
+      feed_mm_per_min: 80
+      seek_mm_per_min: 150
+      settle_ms: 600
+      seek_scaler: 1.10
+      feed_scaler: 1.10
+    motor0:
+      limit_neg_pin: NO_PIN
+      limit_pos_pin: NO_PIN
+      limit_all_pin: NO_PIN
+      hard_limits: false
+      pulloff_mm: 4
+      tmc_2209:
+        uart_num: 1
+        addr: 1
+        r_sense_ohms: 0.110
+        run_amps: 0.80
+        hold_amps: 0.40
+        homing_amps: 0.60
+        microsteps: 16
+        stallguard: 8
+        stallguard_debug: false
+        run_mode: SpreadCycle
+        homing_mode: SpreadCycle
+        use_enable: false
+        step_pin: i2so.5
+        direction_pin: i2so.6:low
+        disable_pin: NO_PIN
+
+sdcard:
+  cs_pin: gpio.15
+  card_detect_pin: NO_PIN
+
+control:
+  safety_door_pin: NO_PIN
+  reset_pin: NO_PIN
+  feed_hold_pin: NO_PIN
+  cycle_start_pin: NO_PIN
+  macro0_pin: NO_PIN
+  macro1_pin: NO_PIN
+  macro2_pin: NO_PIN
+  macro3_pin: NO_PIN
+  fault_pin: NO_PIN
+  estop_pin: NO_PIN
+
+macros:
+  macro0: G90 G0 X162.5 Y5
+
+coolant:
+  flood_pin: NO_PIN
+  mist_pin: NO_PIN
+  delay_ms: 0
+
+user_outputs:
+  analog0_pin: NO_PIN
+  analog1_pin: NO_PIN
+  analog2_pin: NO_PIN
+  analog3_pin: NO_PIN
+  analog0_hz: 5000
+  analog1_hz: 5000
+  analog2_hz: 5000
+  analog3_hz: 5000
+  digital0_pin: NO_PIN
+  digital1_pin: NO_PIN
+  digital2_pin: NO_PIN
+  digital3_pin: NO_PIN
+
+start:
+  must_home: false
+
+spi:
+  miso_pin: gpio.12
+  mosi_pin: gpio.13
+  sck_pin: gpio.14
