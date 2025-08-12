@@ -49,15 +49,6 @@ axes:
     acceleration_mm_per_sec2: 500
     max_travel_mm: 10
     soft_limits: false
-    homing:
-      cycle: 2
-      positive_direction: false
-      mpos_mm: 0
-      feed_mm_per_min: 120
-      seek_mm_per_min: 200
-      settle_ms: 500
-      seek_scaler: 1.10
-      feed_scaler: 1.10
     motor0:
       limit_neg_pin: gpio.35:low
       hard_limits: true
@@ -86,7 +77,7 @@ control:
   reset_pin: NO_PIN
   feed_hold_pin: NO_PIN
   cycle_start_pin: NO_PIN
-  macro0_pin: gpio.33:pu:low
+  macro0_pin: NO_PIN
   macro1_pin: NO_PIN
   macro2_pin: NO_PIN
   macro3_pin: NO_PIN
